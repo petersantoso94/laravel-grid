@@ -18,17 +18,11 @@
         <script src="{{asset('js/geogrid.js')}}"></script>
     </head>
     <body>
-    <div class="grid-stack">
-        <div class="grid-stack-item"
-            data-gs-x="0" data-gs-y="0"
-            data-gs-width="4" data-gs-height="2" style="background: red;">
-                <div class="grid-stack-item-content"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-3"><textarea></textarea></div>
+                <div class="grid-stack col-12 col-md-9"></div>  
+            </div>
         </div>
-        <div class="grid-stack-item"
-            data-gs-x="4" data-gs-y="0"
-            data-gs-width="4" data-gs-height="4">
-                <div class="grid-stack-item-content" style="background: green;"></div>
-        </div>
-    </div>
     </body>
 </html>
