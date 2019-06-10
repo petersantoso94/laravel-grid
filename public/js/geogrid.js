@@ -1,4 +1,7 @@
-
+var printPDF = function() { 
+    var element = document.getElementById('grid-stack-1');
+    html2pdf(element);
+}
 document.addEventListener("DOMContentLoaded", function(event) { 
     var $ = jQuery, grid = null , serializedData  = null, loadGrid = null,items = null, options = null;
     options = {
@@ -22,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         grid.removeAll();
         items = GridStackUI.Utils.sort(serializedData);
         items.forEach(function (node, i) {
-            grid.addWidget($('<div><div class="grid-stack-item-content" style="background: red;">' + i + '</div></div>'),
+            grid.addWidget($('<div><div class="grid-stack-item-content" style="background-image: url(\'img\/cat-'+((i%3)+1)+'.jpg\');">' + i + '</div></div>'),
                 node.x, node.y, node.width, node.height);
         });
         return false;
@@ -35,4 +38,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $('.grid-stack').on('change', function(event, items) {
         serializeWidgetMap(items);
     });
+    
   });

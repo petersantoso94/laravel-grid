@@ -16,12 +16,13 @@
         <script src="{{asset('js/gridstack.js')}}"></script>
         <script src="{{asset('js/gridstack.jQueryUI.js')}}"></script>
         <script src="{{asset('js/geogrid.js')}}"></script>
+        <script src="{{asset('js/html2pdf.bundle.min.js')}}"></script>
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-3"><textarea></textarea></div>
-                <div class="grid-stack col-12 col-md-9"></div>  
+                <div class="col-12 col-md-3"><button type="button" class="btn btn-primary" onclick="printPDF()">export pdf</button></div>
+                <div class="grid-stack col-12 col-md-9" id="grid-stack-1"></div>  
             </div>
         </div>
     </body>
