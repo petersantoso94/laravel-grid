@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         grid.removeAll();
         items = GridStackUI.Utils.sort(serializedData);
         items.forEach(function (node, i) {
-            grid.addWidget($('<div><div class="grid-stack-item-content" style="background-image: url(\'img\/cat-'+((i%3)+1)+'.jpg\');">' + i + '</div></div>'),
+            grid.addWidget($('<div><div class="grid-stack-item-content"><img class="img-responsive height-100" src="img/cat-'+((i%3)+1)+'.jpg"></div></div>'),
                 node.x, node.y, node.width, node.height);
         });
         return false;
