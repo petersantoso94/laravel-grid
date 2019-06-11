@@ -1,6 +1,12 @@
 .grid-stack {
     background: lightgoldenrodyellow;
 }
+.grid-stack > .grid-stack-item-content{
+    background:rgba(51, 50, 51, .6);
+}
 .height-100{
     height: 100%;
+}
+body{
+    margin:5%;
 }

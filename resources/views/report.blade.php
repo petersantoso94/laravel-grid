@@ -19,9 +19,23 @@
         <script src="{{asset('js/html2pdf.bundle.min.js')}}"></script>
     </head>
     <body>
-        <div class="container">
+        <div class="container-liquid">
             <div class="row">
-                <div class="col-12 col-md-3"><button type="button" class="btn btn-primary" onclick="printPDF()">export pdf</button></div>
+                <div class="col-12 col-md-3" id="grid-tools">
+                <form>
+                    <div class="form-group">
+                        <button type="button" class="form-control btn btn-primary widget-tools" onclick="printPDF()">export pdf</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="titleWidth">Width</label>
+                        <input type="number" class="form-control" id="titleWidth" placeholder="Enter title width (grids)">
+                        <small class="form-text text-muted">1 grid = 80px</small><br>
+                        <label for="titleHeight">Height</label>
+                        <input type="number" class="form-control" id="titleHeight" placeholder="Enter title height (grids)">
+                        <small class="form-text text-muted">1 grid = 80px</small>
+                        <button type="button" class="form-control btn btn-success addInput" data-type="text" data-for="title">Add Title</button>
+                    </div>
+                </div>
                 <div class="grid-stack col-12 col-md-9" id="grid-stack-1"></div>  
             </div>
         </div>
