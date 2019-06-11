@@ -2,15 +2,19 @@ var printPDF = function() {
     var element = document.getElementById('grid-stack-1');
     html2pdf(element);
 }
-
 document.addEventListener("DOMContentLoaded", function(event) { 
-    var $ = jQuery, grid = null , serializedData  = null, addGrid = null, loadGrid = null,items = null, options = null;
-    
+    var $ = jQuery, gridObjArr= [], grid = null , serializedData  = null, addGrid = null, loadGrid = null,items = null, options = null, textAreaAuto =null, gridHeight = 50, gridWidth = gridHeight*1.5;
+    $("#gridWidthPx").html(gridWidth);
+    $("#gridHeightPx").html(gridHeight);
     options = {
-        cellHeight: 100,
-        verticalMargin: 10
+        cellHeight: gridHeight,
+        verticalMargin: 10,
+        minWidth: 768,
+        animate: true
     };
+
     $('.grid-stack').gridstack(options);
+
     serializedData = [
         {x: 0, y: 0, width: 4, height: 2},
         {x: 3, y: 1, width: 4, height: 2},
@@ -27,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         grid.removeAll();
         items = GridStackUI.Utils.sort(serializedData);
         items.forEach(function (node, i) {
-            grid.addWidget($('<div><div class="grid-stack-item grid-stack-item-content"><img class="img-responsive height-100" src="img/cat-'+((i%3)+1)+'.jpg"></div></div>'),
+            grid.addWidget($('<div><div class="grid-stack-item grid-stack-item-content"><div class="handleMove"></div><img class="img-responsive height-100" src="img/cat-'+((i%3)+1)+'.jpg"></div></div>'),
                 node.x, node.y, node.width, node.height);
         });
         return false;
@@ -36,28 +40,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // add new grid item
     addGrid = function (gridObj){
-        grid.addWidget($('<div><div class="grid-stack-item grid-stack-item-content">'+gridObj.input+'</div>'),
+        grid.addWidget($('<div><div class="grid-stack-item grid-stack-item-content" data-gg-id="'+gridObj.id+'"><div class="handleMove"></div>'+gridObj.input+'</div></div>'),
         gridObj.x, gridObj.y, gridObj.width, gridObj.height);
     }
-    $(".addInput").click(function(){
-        var inputType = $(this).data("type"),inputFor = $(this).data("for"), grObj = null;
+    $(".addTitle").click(function(){
+        var grObj = null, index = gridObjArr.length, titleText = $("#titleText").val(), objWidth = ($("#gridWidth").val()||4),objHeight = ($("#gridHeight").val()||2);
         grObj = {
-            width: $("#"+inputFor+"Width").val() || 4,
-            height : $("#"+inputFor+"Height").val() || 1,
+            width: objWidth ,
+            height :objHeight,
             x: 0,
             y:0,
-            input:"<input type="+inputType+" class='form-control'>"
+            input:"<textarea class='txtArea'>"+titleText+"</textarea>",
+            id:index
         }
+        gridObjArr.push(grObj)
         addGrid(grObj);
     })
 
     //detect the on change event
     var serializeWidgetMap = function(items) {
-        console.log(items);
+        var selected_obj = gridObjArr[$(items).data("id")];
+        console.log(selected_obj);
     };
     
     $('.grid-stack').on('change', function(event, items) {
         serializeWidgetMap(items);
+    });
+
+    $('.grid-stack-item').on('gsresizestop', function(event, elem) {
+        var newHeight = $(elem).attr('data-gs-height') * gridHeight;
+        console.log(newHeight)
     });
     
   });

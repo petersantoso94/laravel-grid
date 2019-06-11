@@ -1,12 +1,37 @@
 .grid-stack {
     background: lightgoldenrodyellow;
 }
-.grid-stack > .grid-stack-item-content{
-    background:rgba(51, 50, 51, .6);
+.grid-stack > .grid-stack-item > .grid-stack-item-content{
+    /* background:rgba(51, 50, 51, .6); */
+    overflow: hidden;
+    text-align: center;
 }
 .height-100{
     height: 100%;
 }
 body{
     margin:5%;
+}
+textarea {
+    background: transparent;
+    color: black;
+    border: 0 none;
+    resize: none;
+    font-size: 2em;
+    height: auto;
+}
+.handleMove{
+    height:10px;
+    width:100%;
+    display:block;
+    z-index: 90;
+}
+.handleMove:hover{
+    background:rgba(51, 50, 51, .6);
+}
+.txtArea{
+    width: 100%;
+    height:100%;
+    text-align:center;
+    overflow-y: hidden;
 }

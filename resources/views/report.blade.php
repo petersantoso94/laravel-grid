@@ -27,16 +27,20 @@
                         <button type="button" class="form-control btn btn-primary widget-tools" onclick="printPDF()">export pdf</button>
                     </div>
                     <div class="form-group">
-                        <label for="titleWidth">Width</label>
-                        <input type="number" class="form-control" id="titleWidth" placeholder="Enter title width (grids)">
-                        <small class="form-text text-muted">1 grid = 80px</small><br>
-                        <label for="titleHeight">Height</label>
-                        <input type="number" class="form-control" id="titleHeight" placeholder="Enter title height (grids)">
-                        <small class="form-text text-muted">1 grid = 80px</small>
-                        <button type="button" class="form-control btn btn-success addInput" data-type="text" data-for="title">Add Title</button>
+                        <label for="gridWidth">Width</label>
+                        <input type="number" class="form-control" id="gridWidth" placeholder="Enter grid width (grids)">
+                        <small class="form-text text-muted">1 grid = <span id="gridWidthPx"></span>px</small><br>
+                        <label for="gridHeight">Height</label>
+                        <input type="number" class="form-control" id="gridHeight" placeholder="Enter grid height (grids)">
+                        <small class="form-text text-muted">1 grid = <span id="gridHeightPx"></span>px</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="titleText" placeholder="Enter title"><br>
+                        <button type="button" class="form-control btn btn-success addTitle">Add Title</button>
                     </div>
                 </div>
-                <div class="grid-stack col-12 col-md-9" id="grid-stack-1"></div>  
+                <div class="grid-stack col-12 col-md-9" id="grid-stack-1" data-gs-current-height="12"></div>  
             </div>
         </div>
     </body>
