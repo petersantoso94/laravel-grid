@@ -25,22 +25,18 @@
                         <button type="button" class="form-control btn btn-primary widget-tools" onclick="printPDF()">export pdf</button>
                     </div>
                     <div class="form-group">
-                        <label for="gridWidth">Width</label>
-                        <input type="number" class="form-control" id="gridWidth" placeholder="Enter grid width (grids)">
-                        <small class="form-text text-muted">1 grid = <span id="gridWidthPx"></span>px</small><br>
-                        <label for="gridHeight">Height</label>
-                        <input type="number" class="form-control" id="gridHeight" placeholder="Enter grid height (grids)">
-                        <small class="form-text text-muted">1 grid = <span id="gridHeightPx"></span>px</small>
-                    </div>
-                    <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="titleText" placeholder="Enter title"><br>
-                        <button type="button" class="form-control btn btn-success addTitle">Add Title</button>
+                        <div>
+                        <textarea type="text" class="form-control draggable" data-cloned="false" data-resize="false" id="titleText" placeholder="Enter title"></textarea>
+                        </div>
+                        <br>
                     </div>
                 </div>
-                <div id="grid-1" class="col-12 col-md-9 rounded">
-                    <button type="button" id="grid-snap" class="btn btn-success"> this is test </button>
-                </div>  
+                <div class="col-12 col-md-9">
+                    <div id="grid-1" class="rounded dropzone">
+                        
+                    </div>  
+                </div>
             </div>
         </div>
     </body>
