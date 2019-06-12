@@ -8,13 +8,11 @@
 
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/gridstack.css')}}" />
         <link rel="stylesheet" href="{{asset('css/geogrid.css')}}" />
         <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
         <script src="{{asset('js/jquery-ui.min.js')}}"></script>
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('js/gridstack.js')}}"></script>
-        <script src="{{asset('js/gridstack.jQueryUI.js')}}"></script>
+        <script src="https://unpkg.com/interactjs@latest/dist/interact.js"></script>
         <script src="{{asset('js/geogrid.js')}}"></script>
         <script src="{{asset('js/html2pdf.bundle.min.js')}}"></script>
     </head>
@@ -40,7 +38,9 @@
                         <button type="button" class="form-control btn btn-success addTitle">Add Title</button>
                     </div>
                 </div>
-                <div class="grid-stack col-12 col-md-9" id="grid-stack-1" data-gs-current-height="12"></div>  
+                <div id="grid-1" class="col-12 col-md-9 rounded">
+                    <button type="button" id="grid-snap" class="btn btn-success"> this is test </button>
+                </div>  
             </div>
         </div>
     </body>
