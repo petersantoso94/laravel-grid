@@ -5,7 +5,11 @@ textarea{
     resize: none;
 }
 
-
+.dropzone > textarea{
+    background: transparent;
+    color: black;
+    border: 0 none;
+}
 .dropzone > .form-control{
     width: 50%;
     font-size: 200%;
