@@ -5,10 +5,22 @@ textarea{
     resize: none;
 }
 
+
+.img-responsive{
+    margin: auto;
+}
 .dropzone > textarea{
     background: transparent;
     color: black;
     border: 0 none;
+    text-align: center;
+}
+.dropzone > img{
+    width: 50%;
+    height: auto;
+}
+.dropzone > img:hover{
+    border: dashed 4px darkgrey;
 }
 .dropzone > .form-control{
     width: 50%;
@@ -27,7 +39,6 @@ textarea{
   }
   
   .drop-target {
-    background-color: #29e;
     border-color: #fff;
     border-style: solid;
   }

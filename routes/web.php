@@ -17,3 +17,4 @@ Route::get('/', function () {
 Route::get('/report', function () {
     return view('report');
 });
+Route::post('postImage', 'ReportController@imageUploadPost')->name('image.post');

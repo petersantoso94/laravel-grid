@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>Laravel - Grid Stack</title>
 
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
@@ -22,7 +22,7 @@
                 <div class="col-12 col-md-3" id="grid-tools">
                 <form>
                     <div class="form-group">
-                        <button type="button" class="form-control btn btn-primary widget-tools" onclick="printPDF()">export pdf</button>
+                        <button type="button" class="form-control btn btn-primary widget-tools" onclick="printPDF()">Export PDF</button>
                     </div>
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -30,6 +30,17 @@
                         <textarea type="text" class="form-control draggable" data-cloned="false" data-resize="false" id="titleText" placeholder="Enter title"></textarea>
                         </div>
                         <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Image</label>
+                        <form method="post" id="img_form" enctype="multipart/form-data">
+                            <input type="file" class="form-control" id="postImage" name="image" multiple="multiple" accept="image/*">
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <img class="img-responsive" id="imgContent"  data-cloned="false" data-resize="false" src="{{Asset('/img/no-image.png')}}" >
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-9">

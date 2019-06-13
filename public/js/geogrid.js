@@ -3,7 +3,47 @@ var printPDF = function () {
     html2pdf(element);
 }
 document.addEventListener("DOMContentLoaded", function (event) {
-    var $ = jQuery, paperHeight = 1000, resizeListener =null, dragMoveListener=null;
+    var $ = jQuery, paperHeight = 1000, resizeListener = null, dragMoveListener = null, postImage = null, baseUrl = window.location.origin;
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    //post image
+    $("#postImage").on("change", function () {
+        var input = this, url = $(this).val(), ext = null, reader = null, fd = null;
+        ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+            reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imgContent').addClass("draggable");
+                $('#imgContent').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+            fd = new FormData();
+            fd.append('file',input.files[0])
+            postImage(fd);
+        }
+        else {
+            $('#imgContent').attr('src', '/img/no-image.png');
+        }
+    })
+    postImage = function (_data) {
+        $.ajax({
+            url: baseUrl+"/postImage",
+            type: "POST",
+            data: _data,
+            cache : false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+            },
+            error: function (data) {
+                alert('Sorry.');
+            }
+        });
+    }
+
     $(".draggable").each(function (i, obj) {
         var x = $(this).position().left;
         var y = $(this).position().top;
@@ -13,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $("#grid-1").css("height", paperHeight + "px");
 
     //function
-    dragMoveListener = function(event) {
+    dragMoveListener = function (event) {
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -34,18 +74,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
             x = (parseFloat(target.getAttribute('data-x')) || 0),
             y = (parseFloat(target.getAttribute('data-y')) || 0),
             resizable = target.getAttribute('data-resize');
-        if(resizable == "true"){
+        if (resizable == "true") {
             // update the element's style
-            target.style.width  = event.rect.width + 'px';
+            target.style.width = event.rect.width + 'px';
             target.style.height = event.rect.height + 'px';
-        
+
             // translate when resizing from top or left edges
             x += event.deltaRect.left;
             y += event.deltaRect.top;
-        
+
             target.style.webkitTransform = target.style.transform =
                 'translate(' + x + 'px,' + y + 'px)';
-        
+
             target.setAttribute('data-x', x);
             target.setAttribute('data-y', y);
         }
@@ -69,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 inity = $(clonedElement).data("inity");
                 $(clonedElement).attr("data-cloned", "true");
                 $(clonedElement).attr("data-resize", "true");
-                $(clonedElement).css({"-webkit-transform":"translate(0px,"+inity+"px)"});
-                $(clonedElement).attr("data-x", "0").attr("data-y",inity);
+                $(clonedElement).css({ "-webkit-transform": "translate(0px," + inity + "px)" });
+                $(clonedElement).attr("data-x", "0").attr("data-y", inity);
                 $(clonedElement).appendTo(dropzoneElement);
 
                 // feedback the possibility of a drop
@@ -109,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }).resizable({
         edges: { left: false, right: true, bottom: true, top: false },
-        onresizemove : resizeListener
-      }).on('resizemove',resizeListener);
+        onresizemove: resizeListener
+    }).on('resizemove', resizeListener);
 
 });
