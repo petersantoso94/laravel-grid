@@ -6,15 +6,15 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>Laravel - Grid Stack</title>
 
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}" />
-        <link rel="stylesheet" href="{{asset('css/geogrid.css')}}" />
-        <script src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
-        <script src="{{asset('js/jquery-ui.min.js')}}"></script>
-        <script src="{{asset('js/bootstrap.min.js')}}"></script>
+        <link rel="stylesheet" href="{{secure_asset('css/bootstrap.min.css')}}" />
+        <link rel="stylesheet" href="{{secure_asset('css/bootstrap-theme.min.css')}}" />
+        <link rel="stylesheet" href="{{secure_asset('css/geogrid.css')}}" />
+        <script src="{{secure_asset('js/jquery-3.4.1.min.js')}}"></script>
+        <script src="{{secure_asset('js/jquery-ui.min.js')}}"></script>
+        <script src="{{secure_asset('js/bootstrap.min.js')}}"></script>
         <script src="https://unpkg.com/interactjs@latest/dist/interact.js"></script>
-        <script src="{{asset('js/geogrid.js')}}"></script>
-        <script src="{{asset('js/html2pdf.bundle.min.js')}}"></script>
+        <script src="{{secure_asset('js/geogrid.js')}}"></script>
+        <script src="{{secure_asset('js/html2pdf.bundle.min.js')}}"></script>
     </head>
     <body>
         <div class="container-liquid">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group">
                         <div>
-                            <img class="img-responsive" id="imgContent"  data-cloned="false" data-resize="false" src="{{Asset('/img/no-image.png')}}" >
+                            <img class="img-responsive" id="imgContent"  data-cloned="false" data-resize="false" src="{{secure_asset('/img/no-image.png')}}" >
                         </div>
                     </div>
                 </div>
