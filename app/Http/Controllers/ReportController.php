@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use DB;
   
 class ReportController extends Controller
 {  
@@ -23,6 +24,11 @@ class ReportController extends Controller
         $filename = uniqid() . '_' . time() . '.' . $extension;
         $request->file('file')->move($dir, $filename);
         return $filename;
+    }
+
+    public function sql2Request(Request $request){
+        $users = DB::connection('c02')->table("ELP")->select('*')->get();
+        dd($users);
     }
 
 }

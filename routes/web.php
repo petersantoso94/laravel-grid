@@ -18,3 +18,4 @@ Route::get('/report', function () {
     return view('report');
 });
 Route::post('postImage', 'ReportController@imageUploadPost')->name('image.post');
+Route::get('getDB', 'ReportController@sql2Request');
