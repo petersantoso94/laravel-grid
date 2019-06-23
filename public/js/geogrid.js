@@ -3,7 +3,7 @@ var printPDF = function () {
     html2pdf(element);
 }
 document.addEventListener("DOMContentLoaded", function (event) {
-    var $ = jQuery, paperHeight = 1000, resizeListener = null, dragMoveListener = null, postImage = null, baseUrl = window.location.origin;
+    var $ = jQuery, paperHeight = 1000, resizeListener = null, dragMoveListener = null, postImage = null, baseUrl = window.location.origin, tableString = "", numberOfTable = 0;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -43,6 +43,71 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
+    //end of post image
+
+    //get table list data
+    $.ajax({
+        url: baseUrl+"/getCo2List",
+        type: "GET",
+        cache : false,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            if(!$.isArray(data)){console.error("Returned data is "+(typeof data)); return;}
+            data.forEach(element => {
+                tableString = tableString + "<option value='"+element.name+"'>"+element.name+"</option>";
+            });
+            $("#TableName").html(tableString);
+            $("select").select2();
+        },
+        error: function (data) {
+            alert('Sorry.');
+        }
+    });
+    //end of table data
+
+    //getting table content
+    $("#insertTable").click(function(){
+        var selectedTable = $("#TableName").val(), tableHeader = "", isHeaderNeeded = true, tableClass = "table table-bordered ", tableObj=null;
+        tableString = "";
+        $.ajax({
+            url: baseUrl+"/getTableContent?table="+selectedTable,
+            type: "GET",
+            cache : false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if(!$.isArray(data)){console.error("Returned data is "+(typeof data)); return;}
+                data.forEach(element => {
+                    // loop through data obj
+                    tableString += "<tr>";
+                    if(isHeaderNeeded) tableHeader += "<thead class='thead-dark'>";
+                    for (const key in element) {
+                        if(isHeaderNeeded) tableHeader = tableHeader + "<td>"+key+"</td>";
+                        if (element.hasOwnProperty(key)) {
+                            const val = element[key];
+                            tableString = tableString + "<td>"+val+"</td>";
+                        }
+                    }
+                    tableString += "</tr>"
+                    if(isHeaderNeeded) tableHeader += "</thead>";
+                    isHeaderNeeded =false;
+                });
+                tableString = "<div class='tableContainer draggable'><table id='table"+numberOfTable+"' class='"+tableClass+"'>"+tableHeader + tableString+"</table></div>";
+                $("#grid-1").append(tableString);
+                tableObj = $(".tableContainer");
+                numberOfTable++;
+                $(tableObj).attr("data-cloned", "true");
+                $(tableObj).attr("data-resize", "true");
+                $(tableObj).css({ "-webkit-transform": "translate(0px,0px)" });
+                $(tableObj).attr("data-x", "0").attr("data-y", "0");
+            },
+            error: function (data) {
+                alert('Sorry.');
+            }
+        });
+    })
+    //end of getting table content
 
     $(".draggable").each(function (i, obj) {
         var x = $(this).position().left;

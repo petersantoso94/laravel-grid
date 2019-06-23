@@ -18,4 +18,5 @@ Route::get('/report', function () {
     return view('report');
 });
 Route::post('postImage', 'ReportController@imageUploadPost')->name('image.post');
-Route::get('getDB', 'ReportController@sql2Request');
+Route::get('getCo2List', 'ReportController@getCo2List');
+Route::get('getTableContent', 'ReportController@getTableContent');
