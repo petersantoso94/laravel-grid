@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 numberOfTable++;
                 $(tableObj).attr("data-cloned", "true");
                 $(tableObj).attr("data-resize", "true");
-                var topOffset = getOffset( document.getElementById($(tableObj).attr("id"))).top;
+                var topOffset = getOffset( document.getElementById($(tableObj).attr("id"))).top -15;
                 $(tableObj).css({ "-webkit-transform": "translate(0px,-" + topOffset + "px)" });
                 $(tableObj).css({ "transform": "translate(0px,-" + topOffset + "px)" });
                 // $(".tableContainer").css({ "left": "0px" });
