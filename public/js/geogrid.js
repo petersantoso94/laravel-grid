@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             contentType: false,
             success: function (data) {
                 if(!$.isArray(data)){console.error("Returned data is "+(typeof data)); return;}
+                if(data.length == 0){alert("Empty table selected!"); return;}
                 data.forEach(element => {
                     // loop through data obj
                     tableString += "<tr>";
@@ -99,7 +100,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 numberOfTable++;
                 $(tableObj).attr("data-cloned", "true");
                 $(tableObj).attr("data-resize", "true");
-                $(tableObj).css({ "-webkit-transform": "translate(0px,0px)" });
+                // $(tableObj).css({ "-webkit-transform": "translate(0px,0px)" });
+                $(tableObj).css({ "left": "0px" });
+                $(tableObj).css({ "top": "0px" });
                 $(tableObj).attr("data-x", "0").attr("data-y", "0");
             },
             error: function (data) {
