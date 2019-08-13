@@ -9,6 +9,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    //get offset of element
+    function getOffset( el ) {
+        var _x = 0;
+        var _y = 0;
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            _x += el.offsetLeft - el.scrollLeft;
+            _y += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+        return { top: _y, left: _x };
+    }
     //post image
     $("#postImage").on("change", function () {
         var input = this, url = $(this).val(), ext = null, reader = null, fd = null;
@@ -94,16 +105,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     if(isHeaderNeeded) tableHeader += "</thead>";
                     isHeaderNeeded =false;
                 });
-                tableString = "<div class='tableContainer draggable'><table id='table"+numberOfTable+"' class='"+tableClass+"'>"+tableHeader + tableString+"</table></div>";
+                tableString = "<div class='tableContainer draggable' id='container"+numberOfTable+"'><table id='table"+numberOfTable+"' class='"+tableClass+"'>"+tableHeader + tableString+"</table></div>";
                 $("#grid-1").append(tableString);
-                tableObj = $(".tableContainer");
+                tableObj = $("#container"+numberOfTable);
                 numberOfTable++;
                 $(tableObj).attr("data-cloned", "true");
                 $(tableObj).attr("data-resize", "true");
-                // $(tableObj).css({ "-webkit-transform": "translate(0px,0px)" });
-                $(tableObj).css({ "left": "0px" });
-                $(tableObj).css({ "top": "0px" });
-                $(tableObj).attr("data-x", "0").attr("data-y", "0");
+                var topOffset = getOffset( document.getElementById($(tableObj).attr("id"))).top;
+                $(tableObj).css({ "-webkit-transform": "translate(0px,-" + topOffset + "px)" });
+                $(tableObj).css({ "transform": "translate(0px,-" + topOffset + "px)" });
+                // $(".tableContainer").css({ "left": "0px" });
+                // $(".tableContainer").css({ "top": "0px" });
+                $(tableObj).attr("data-x", "0").attr("data-y", -topOffset);
             },
             error: function (data) {
                 alert('Sorry.');
@@ -178,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 $(clonedElement).attr("data-cloned", "true");
                 $(clonedElement).attr("data-resize", "true");
                 $(clonedElement).css({ "-webkit-transform": "translate(0px," + inity + "px)" });
+                $(clonedElement).css({ "transform": "translate(0px," + inity + "px)" });
                 $(clonedElement).attr("data-x", "0").attr("data-y", inity);
                 $(clonedElement).appendTo(dropzoneElement);
 
@@ -199,9 +213,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
             event.target.classList.remove('drop-target');
         }
     });
-    interact(".draggable").draggable({
+    var initiateInteract = function(){
+        interact(".draggable").draggable({
         // enable inertial throwing
-        inertia: true,
+        inertia: false,
         // keep the element within the area of it's parent
         restrict: {
             restriction: "parent",
@@ -219,5 +234,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         edges: { left: false, right: true, bottom: true, top: false },
         onresizemove: resizeListener
     }).on('resizemove', resizeListener);
+}
+initiateInteract();
+
 
 });
